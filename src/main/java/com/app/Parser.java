@@ -1,4 +1,4 @@
-package main.java.app;
+package com.app;
 
 public class Parser {
 	// Responsável por realizar o parse das entradas
