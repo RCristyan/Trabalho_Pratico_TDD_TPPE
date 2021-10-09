@@ -10,11 +10,6 @@ import main.java.com.app.test;
 class ParserTest {
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testIfThereIsDelimiter() {
 		Parser parser = new Parser();
 		
