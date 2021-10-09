@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import main.java.com.app.Parser;
+import main.java.com.app.test;
+
 class ParserTest {
 
 	@Test
@@ -11,4 +14,11 @@ class ParserTest {
 		fail("Not yet implemented");
 	}
 
+	@Test
+	public void testIfThereIsDelimiter() {
+		Parser parser = new Parser();
+		
+		assertNotNull(parser.getDelimiter());
+	}
+	
 }
