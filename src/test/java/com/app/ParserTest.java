@@ -27,7 +27,7 @@ class ParserTest {
 		"*, *",
 		"-, -"
 	})
-	public void testIfChosenDelimiterIsCorrect(String input, String expectedOutput) {
+	public void testIfChosenDelimiterIsCorrect(String input, String expectedOutput) throws DelimitadorInvalidoException {
 		Parser parser = new Parser(input);
 		
 		assertEquals(parser.getDelimiter(), expectedOutput);
@@ -40,7 +40,7 @@ class ParserTest {
 	})
 	public void testInvalidDelimiter(String input) {
 		assertThrows(DelimitadorInvalidoException.class, () -> {
-			Parser parser = new Parser(input);
+			new Parser(input);
 		});
 	}
 	
