@@ -25,7 +25,7 @@ class ParserTest {
 		"*, *",
 		"-, -"
 	})
-	public void testIfChosenDelimiterIsCorrect(char input, char expectedOutput) {
+	public void testIfChosenDelimiterIsCorrect(String input, String expectedOutput) {
 		Parser parser = new Parser(input);
 		
 		assertEquals(parser.getDelimiter(), expectedOutput);

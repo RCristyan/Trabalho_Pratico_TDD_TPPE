@@ -2,11 +2,11 @@ package main.java.com.app;
 
 public class Parser {
 	// Responsável por realizar o parse das entradas
-	private char delimiter = '-';
+	private String delimiter = "-";
 	
 	public Parser() {}
 	
-	public Parser(char delimiter) {
+	public Parser(String delimiter) {
 		this.delimiter = delimiter;
 	}
 	
@@ -14,7 +14,7 @@ public class Parser {
 		System.out.println("hello world");
 	}
 
-	public char getDelimiter() {
+	public String getDelimiter() {
 		return this.delimiter;
 	}
 
