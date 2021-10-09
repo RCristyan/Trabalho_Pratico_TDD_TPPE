@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import main.java.com.app.Parser;
-import main.java.com.app.test;
 
 class ParserTest {
 
@@ -14,6 +13,14 @@ class ParserTest {
 		Parser parser = new Parser();
 		
 		assertNotNull(parser.getDelimiter());
+	}
+	
+	
+	@Test
+	public void testIfChosenDelimiterIsCorrect() {
+		Parser parser = new Parser(';');
+		
+		assertEquals(parser.getDelimiter(), ';');
 	}
 	
 }
