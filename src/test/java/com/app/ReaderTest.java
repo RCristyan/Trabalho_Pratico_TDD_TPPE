@@ -12,4 +12,13 @@ class ReaderTests {
         String[] actual = reader.read();
         assertArrayEquals(expected, actual);
     }
+
+    @Test
+    void testReadNonExistingFile() {
+        ArquivoNaoEncontradoException exception = assertThrows(ArquivoNaoEncontradoException.class, () -> {
+            Reader reader = new Reader("src/test/resources/test-nonexist.txt");
+            reader.read();
+        });
+        assertEquals("src/test/resources/test-nonexist.txt", exception.getMessage());
+    }
 }
