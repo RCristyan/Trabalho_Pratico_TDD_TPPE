@@ -1,5 +1,20 @@
 package com.app;
 
+import java.io.File;
+
 public class Writer {
 	// Responsável pela escrita dos arquivos de saída do programa
+    private String outputPath;
+
+    public String getOutputPath() {
+        return outputPath;
+    }
+
+    public void setOutputPath(String outputPath) {
+        this.outputPath = outputPath;
+    }
+
+    public boolean pathAllowWrite(String path) {
+        return true;
+    }
 }
