@@ -23,7 +23,7 @@ public class Parser {
 	
 	public void setDelimiter(String delimiter) throws DelimitadorInvalidoException {
 		
-		if(delimiter.length() > 1) {
+		if(delimiter.length() > 1 && !delimiter.startsWith("\\")) {
 			throw new DelimitadorInvalidoException("Delimitador inválido: apenas 1 caractere permitido.");
 		}
 		
