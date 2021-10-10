@@ -4,6 +4,7 @@ import main.java.com.app.exceptions.DelimitadorInvalidoException;
 
 public class Parser {
 	// Responsável por realizar o parse das entradas
+	
 	private String delimiter = "-";
 	
 	public Parser() {}
@@ -21,6 +22,7 @@ public class Parser {
 	}
 	
 	public void setDelimiter(String delimiter) throws DelimitadorInvalidoException {
+		
 		if(delimiter.length() > 1) {
 			throw new DelimitadorInvalidoException("Delimitador inválido: apenas 1 caractere permitido.");
 		}

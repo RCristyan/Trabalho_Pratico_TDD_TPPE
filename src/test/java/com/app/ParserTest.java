@@ -19,7 +19,6 @@ class ParserTest {
 		assertNotNull(parser.getDelimiter());
 	}
 	
-	
 	@ParameterizedTest
 	@CsvSource({
 		";, ;",
@@ -42,6 +41,18 @@ class ParserTest {
 		assertThrows(DelimitadorInvalidoException.class, () -> {
 			new Parser(input);
 		});
+	}
+	
+	@ParameterizedTest
+	@CsvSource({
+		"\\n, \\n",
+		"\\t, \\t",
+		"\\r, \\r"
+	})
+	public void testSpecialCharDelimiter(String input, String expectedOutput) throws DelimitadorInvalidoException {
+		Parser parser = new Parser(input);
+		
+		assertEquals(parser.getDelimiter(), expectedOutput);
 	}
 	
 }
