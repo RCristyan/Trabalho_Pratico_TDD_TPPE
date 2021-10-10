@@ -19,10 +19,11 @@ class ReaderTests {
 
     @Test
     void testReadNonExistingFile() {
+        String fName = "src/test/resources/test-nonexist.txt";
         ArquivoNaoEncontradoException exception = assertThrows(ArquivoNaoEncontradoException.class, () -> {
-            Reader reader = new Reader("src/test/resources/test-nonexist.txt");
+            Reader reader = new Reader(fName);
             reader.read();
         });
-        assertEquals("src/test/resources/test-nonexist.txt", exception.getMessage());
+        assertEquals(fName, exception.getMessage());
     }
 }
