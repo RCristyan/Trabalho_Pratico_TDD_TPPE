@@ -35,7 +35,8 @@ class ParserTest {
 	@ParameterizedTest
 	@CsvSource({
 		"hello",
-		"testing"
+		"testing",
+		"third time's a charm"
 	})
 	public void testInvalidDelimiter(String input) {
 		assertThrows(DelimitadorInvalidoException.class, () -> {
