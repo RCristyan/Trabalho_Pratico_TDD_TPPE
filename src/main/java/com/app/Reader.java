@@ -1,15 +1,39 @@
 package com.app;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+
 public class Reader {
 	// Responsável pela leitura dos arquivos de entrada do programa
 
-	Reader(String fileName) {
+	private String fileName;
+	private FileInputStream fileInputStream = null;
 
+	private void openFile() {	
+		try {
+			this.fileInputStream = new FileInputStream(fileName);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	} 
+
+	Reader(String fileName) {
+		this.fileName = fileName;
+		this.openFile();
 	}
 	
 	String[] read() {
-		// TODO - implement Reader.read
-		String [] res = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-		return res;
+		BufferedReader buffer = new BufferedReader(new java.io.InputStreamReader(fileInputStream));
+		String line = null;
+		ArrayList<String> lines = new ArrayList<String>();
+		try {
+			while ((line = buffer.readLine()) != null) {
+				lines.add(line);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return lines.toArray(new String[lines.size()]);
 	}
 }
