@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class WriterTest {
     @Test
@@ -14,13 +15,20 @@ public class WriterTest {
         // Arrange
         Writer writer = new Writer();
         boolean permicao = false;
+        String messageError = null;
         String currentPath = Path.of("").toAbsolutePath().toString();
 
         // Act
-        writer.setOutputPath(currentPath);
-        permicao = writer.pathAllowWrite(writer.getOutputPath());
+        try {
+            writer.setOutputPath(currentPath);
+            permicao = writer.pathAllowWrite(writer.getOutputPath());
+        } catch (Exception ex){
+            permicao = false;
+            messageError = ex.getMessage();
+        }
 
         // Assert
         assertEquals(true, permicao);
+        assertNull(messageError);
     }
 }
