@@ -10,15 +10,15 @@ public class Reader {
 	private String fileName;
 	private FileInputStream fileInputStream = null;
 
-	private void openFile() {	
+	private void openFile() throws ArquivoNaoEncontradoException {	
 		try {
 			this.fileInputStream = new FileInputStream(fileName);
 		} catch (Exception e) {
-			// TODO: handle exception
+			throw new ArquivoNaoEncontradoException(fileName);
 		}
 	} 
 
-	Reader(String fileName) {
+	Reader(String fileName) throws ArquivoNaoEncontradoException {
 		this.fileName = fileName;
 		this.openFile();
 	}
