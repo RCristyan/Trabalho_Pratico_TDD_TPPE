@@ -14,7 +14,13 @@ public class Writer {
         this.outputPath = outputPath;
     }
 
-    public boolean pathAllowWrite(String path) {
-        return true;
+    public boolean pathAllowWrite(String path) throws EscritaNaoPermitidaException{
+        File f = new File(path);
+
+        if(f.canWrite()){
+            return true;
+        }else{
+            throw new EscritaNaoPermitidaException("Não há permição de escrita no caminho de destino!");
+        }
     }
 }
