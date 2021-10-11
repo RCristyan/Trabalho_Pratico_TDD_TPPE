@@ -1,4 +1,4 @@
-package com.app;
+package main.java.com.app;
 
 public class Reader {
 	// Responsável pela leitura dos arquivos de entrada do programa
