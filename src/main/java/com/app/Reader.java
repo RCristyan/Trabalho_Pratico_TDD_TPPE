@@ -1,4 +1,4 @@
-package com.app;
+package main.java.com.app;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Reader {
 	// Responsável pela leitura dos arquivos de entrada do programa
-
 	private String fileName;
 	private FileInputStream fileInputStream = null;
 
