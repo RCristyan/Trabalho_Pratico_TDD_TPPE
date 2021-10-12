@@ -1,4 +1,4 @@
-package com.app;
+package main.java.com.app;
 
 import java.io.File;
 
