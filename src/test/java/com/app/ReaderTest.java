@@ -7,9 +7,23 @@ import org.junit.jupiter.api.Test;
 class ReaderTests {
     @Test
     void testRead() {
-        Reader reader = new Reader("src/test/resources/test.txt");
-        String[] expected = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-        String[] actual = reader.read();
-        assertArrayEquals(expected, actual);
+        try {
+            Reader reader = new Reader("src/test/resources/test.txt");
+            String[] expected = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+            String[] actual = reader.read();
+            assertArrayEquals(expected, actual);
+        } catch (Exception e) {
+            fail("Exception thrown");
+        }
+    }
+
+    @Test
+    void testReadNonExistingFile() {
+        String fName = "src/test/resources/test-nonexist.txt";
+        ArquivoNaoEncontradoException exception = assertThrows(ArquivoNaoEncontradoException.class, () -> {
+            Reader reader = new Reader(fName);
+            reader.read();
+        });
+        assertEquals(fName, exception.getMessage());
     }
 }
