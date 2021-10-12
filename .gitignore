@@ -8,7 +8,6 @@ gradle-app.setting
 # Eclipse
 /.classpath
 /.settings/
-/.project
 /bin/
 
 # IntelliJ
