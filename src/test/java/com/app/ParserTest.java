@@ -56,4 +56,11 @@ class ParserTest {
 		assertEquals(parser.getDelimiter(), expectedOutput);
 	}
 	
+	@Test
+	public void testIfThereIsReader() {
+		Parser parser = new Parser();
+		
+		assertNotNull(parser.getReader());
+	}
+	
 }
