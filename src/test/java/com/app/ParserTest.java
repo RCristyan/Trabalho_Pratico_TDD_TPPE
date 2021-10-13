@@ -70,4 +70,20 @@ class ParserTest {
 		assertTrue(parser.getReader() instanceof Reader);
 	}
 	
+	@Test
+	public void testIfThereIsReadLines() {
+		Parser parser = new Parser();
+		try {
+			parser.setReader(new Reader("analysisTime.out"));		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		String[] lines = parser.getReader().read();
+		
+		assertTrue(lines[0] instanceof String);
+		assertTrue(lines[1] instanceof String);
+		assertTrue(lines[2] instanceof String);
+	}
+	
 }
