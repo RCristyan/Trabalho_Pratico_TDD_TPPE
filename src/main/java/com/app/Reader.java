@@ -17,7 +17,7 @@ public class Reader {
 		}
 	} 
 
-	Reader(String fileName) throws ArquivoNaoEncontradoException {
+	public Reader(String fileName) throws ArquivoNaoEncontradoException {
 		this.fileName = fileName;
 		this.openFile();
 	}
