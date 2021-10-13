@@ -22,7 +22,7 @@ public class Reader {
 		this.openFile();
 	}
 	
-	String[] read() {
+	public String[] read() {
 		BufferedReader buffer = new BufferedReader(new java.io.InputStreamReader(fileInputStream));
 		String line = null;
 		ArrayList<String> lines = new ArrayList<String>();
