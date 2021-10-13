@@ -3,12 +3,14 @@ package test.java.com.app;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import main.java.com.app.Parser;
 import main.java.com.app.exceptions.DelimitadorInvalidoException;
+import main.java.com.app.Reader;
 
 class ParserTest {
 
@@ -59,8 +61,13 @@ class ParserTest {
 	@Test
 	public void testIfThereIsReader() {
 		Parser parser = new Parser();
+		try {
+			parser.setReader(new Reader("analysisTime.out"));		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-		assertNotNull(parser.getReader());
+		assertTrue(parser.getReader() instanceof Reader);
 	}
 	
 }

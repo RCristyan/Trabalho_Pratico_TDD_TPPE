@@ -6,6 +6,7 @@ public class Parser {
 	// Responsável por realizar o parse das entradas
 	
 	private String delimiter = "-";
+	private Reader reader;
 	
 	public Parser() {}
 	
@@ -28,6 +29,14 @@ public class Parser {
 		}
 		
 		this.delimiter = delimiter;
+	}
+
+	public Reader getReader() {
+		return this.reader;
+	}
+	
+	public void setReader(Reader r) {
+		this.reader = r;
 	}
 
 }
