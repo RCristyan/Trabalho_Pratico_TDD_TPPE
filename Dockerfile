@@ -1,3 +1,3 @@
-FROM gradle:7.0.0-jdk8
+FROM gradle:jdk11
 WORKDIR /myapp
 COPY . ./
