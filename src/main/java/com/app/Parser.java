@@ -1,6 +1,6 @@
-package main.java.com.app;
+package com.app;
 
-import main.java.com.app.exceptions.DelimitadorInvalidoException;
+import com.app.exceptions.DelimitadorInvalidoException;
 
 public class Parser {
 	// Responsável por realizar o parse das entradas
