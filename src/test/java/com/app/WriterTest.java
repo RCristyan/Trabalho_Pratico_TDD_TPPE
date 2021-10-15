@@ -67,4 +67,17 @@ public class WriterTest {
         // Assert
         assertEquals("linha", writer.getFormatoSaida());
     }
+
+    @Test
+    public void testOutputFormatIsColumn() {
+        // Arrange
+        Writer writer = new Writer();
+        String input = "2";
+
+        // Act
+        writer.defineFormatoSaida(new Scanner(input));
+
+        // Assert
+        assertEquals("coluna", writer.getFormatoSaida());
+    }
 }
