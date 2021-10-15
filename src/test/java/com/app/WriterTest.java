@@ -84,4 +84,19 @@ public class WriterTest {
         assertEquals("coluna", writer.getFormatoSaida());
         assertEquals(true, formatoSaidaDefinido);
     }
+    
+    @Test
+    public void testOutputFormatIsNull() {
+        // Arrange
+        Writer writer = new Writer();
+        String input = "5";
+        boolean formatoSaidaDefinido = false;
+
+        // Act
+        formatoSaidaDefinido = writer.defineFormatoSaida(new Scanner(input));
+
+        // Assert
+        assertNull(writer.getFormatoSaida());
+        assertEquals(false, formatoSaidaDefinido);
+    }
 }
