@@ -1,14 +1,13 @@
 package com.app;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WriterTest {
     @Test
@@ -85,26 +84,15 @@ public class WriterTest {
         assertEquals(true, formatoSaidaDefinido);
     }
     
-    @Test
-    public void testOutputFormatIsNull() {
+    @ParameterizedTest
+    @CsvSource({
+            "5",
+            "10",
+            "10000"
+    })
+    public void testOutputFormatIsNull(String input) {
         // Arrange
         Writer writer = new Writer();
-        String input = "5";
-        boolean formatoSaidaDefinido = false;
-
-        // Act
-        formatoSaidaDefinido = writer.defineFormatoSaida(new Scanner(input));
-
-        // Assert
-        assertNull(writer.getFormatoSaida());
-        assertEquals(false, formatoSaidaDefinido);
-    }
-
-    @Test
-    public void testOutputFormatIsNull2() {
-        // Arrange
-        Writer writer = new Writer();
-        String input = "10";
         boolean formatoSaidaDefinido = false;
 
         // Act
