@@ -60,12 +60,14 @@ public class WriterTest {
         // Arrange
         Writer writer = new Writer();
         String input = "1";
+        boolean formatoSaidaDefinido = false;
 
         // Act
-        writer.defineFormatoSaida(new Scanner(input));
+        formatoSaidaDefinido = writer.defineFormatoSaida(new Scanner(input));
 
         // Assert
         assertEquals("linha", writer.getFormatoSaida());
+        assertEquals(true, formatoSaidaDefinido);
     }
 
     @Test
@@ -73,11 +75,13 @@ public class WriterTest {
         // Arrange
         Writer writer = new Writer();
         String input = "2";
+        boolean formatoSaidaDefinido = false;
 
         // Act
-        writer.defineFormatoSaida(new Scanner(input));
+        formatoSaidaDefinido = writer.defineFormatoSaida(new Scanner(input));
 
         // Assert
         assertEquals("coluna", writer.getFormatoSaida());
+        assertEquals(true, formatoSaidaDefinido);
     }
 }

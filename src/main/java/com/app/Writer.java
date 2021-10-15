@@ -18,7 +18,7 @@ public class Writer {
     }
 
     public String getFormatoSaida() {
-        return "linha"; // falsificação
+        return formatoSaida;
     }
 
     public void setFormatoSaida(String formatoSaida) {
@@ -35,6 +35,27 @@ public class Writer {
         }
     }
 
-    public void defineFormatoSaida(Scanner scanner){
+    public boolean defineFormatoSaida(){
+        return defineFormatoSaida(new Scanner(System.in));
+    }
+
+    public boolean defineFormatoSaida(Scanner scanner){
+        System.out.println("Defina o formato de saida do resultado");
+        System.out.println("1 - linha");
+        System.out.println("2 - coluna");
+
+        switch (scanner.nextInt()) {
+            case 1:
+                setFormatoSaida("linha");
+                break;
+            case 2:
+                setFormatoSaida("coluna");
+                break;
+            default:
+                System.out.println("Digite um valor válido!");
+                return false;
+        }
+
+        return true;
     }
 }
