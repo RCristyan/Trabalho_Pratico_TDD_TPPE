@@ -53,4 +53,17 @@ public class WriterTest {
         assertEquals(false, permicao);
         assertEquals("Não há permição de escrita no caminho de destino!", messageError);
     }
+
+    @Test
+    public void testFormatoSaida() {
+        // Arrange
+        Writer writer = new Writer();
+        String input = "1";
+
+        // Act
+        writer.defineFormatoSaida(new Scanner(input));
+
+        // Assert
+        assertEquals("linha", writer.getFormatoSaida());
+    }
 }
