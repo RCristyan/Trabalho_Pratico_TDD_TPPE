@@ -2,6 +2,7 @@ package com.app;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -55,7 +56,7 @@ public class WriterTest {
     }
 
     @Test
-    public void testFormatoSaida() {
+    public void testOutputFormatIsLine() {
         // Arrange
         Writer writer = new Writer();
         String input = "1";
