@@ -99,4 +99,19 @@ public class WriterTest {
         assertNull(writer.getFormatoSaida());
         assertEquals(false, formatoSaidaDefinido);
     }
+
+    @Test
+    public void testOutputFormatIsNull2() {
+        // Arrange
+        Writer writer = new Writer();
+        String input = "10";
+        boolean formatoSaidaDefinido = false;
+
+        // Act
+        formatoSaidaDefinido = writer.defineFormatoSaida(new Scanner(input));
+
+        // Assert
+        assertNull(writer.getFormatoSaida());
+        assertEquals(false, formatoSaidaDefinido);
+    }
 }
