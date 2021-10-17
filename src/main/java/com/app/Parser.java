@@ -24,8 +24,13 @@ public class Parser {
 		String[] lines = this.getReader().read();
 		
 		ArrayList<String> linha = new ArrayList<String>();
-	    for(int i = 1; i < lines.length; i++) {
+	    for(int i = 1; i <= lines.length; i++) {
 	        
+	    	if(i == lines.length) {
+	    		this.matrix.add(linha);
+	    		break;
+	    	}
+	    	
 	        if(lines[i].startsWith("-")) {
 	        	this.matrix.add(linha);
 	        	i++;
