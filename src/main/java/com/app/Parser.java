@@ -1,6 +1,7 @@
 package main.java.com.app;
 
 import java.util.ArrayList;
+
 import main.java.com.app.exceptions.DelimitadorInvalidoException;
 import main.java.com.app.exceptions.InvalidDisplayOptionException;
 
@@ -52,7 +53,11 @@ public class Parser {
 	}
 	
 	public ArrayList<String> getEvolution(int index){
-		return this.matrix.get(index);
+		try {
+			return this.matrix.get(index);			
+		} catch(IndexOutOfBoundsException e) {
+			return null;
+		}
 	}
 	
 	public void setDelimiter(String delimiter) throws DelimitadorInvalidoException {
@@ -92,11 +97,30 @@ public class Parser {
 		String formatedLine = "" + index;
 		ArrayList<String> lineItems = this.getEvolution(index);
 		
+		if(lineItems == null) {
+			return null;
+		}
+		
 		for(String item : lineItems) {
 			formatedLine += ";" + item;
 		}
 		
 		return formatedLine;
+	}
+	
+	public ArrayList<String> getFormatedText() {
+		ArrayList<String> formatedText = new ArrayList<String>();
+		
+		for(int i = 0;; i++) {
+			String evo = this.getFormatedEvolution(i);
+			if(evo == null) {
+				break;
+			}
+			
+			formatedText.add(evo);
+		}
+		
+		return formatedText;
 	}
 
 }
