@@ -175,17 +175,18 @@ class ParserTest {
 		"linhas",
 		"colunas"
 	})
-	public void testIfThereIsDisplayOption(String input){
+	public void testIfThereIsDisplayOption(String input) throws InvalidDisplayOptionException{
 		Parser parser = new Parser();
-		parser.setDisplayOption(input);
+		parser.setDisplayOption(input);			
 		
 		assertEquals(parser.getDisplayOption(), input);
 	}
 	
 	@ParameterizedTest
 	@CsvSource({
-		"linhas",
-		"colunas"
+		"texto",
+		"espaços",
+		"\\t"
 	})
 	public void testInvalidDisplayOption(String input){
 		Parser parser = new Parser();

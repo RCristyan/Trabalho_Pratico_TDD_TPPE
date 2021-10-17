@@ -2,6 +2,7 @@ package main.java.com.app;
 
 import java.util.ArrayList;
 import main.java.com.app.exceptions.DelimitadorInvalidoException;
+import main.java.com.app.exceptions.InvalidDisplayOptionException;
 
 public class Parser {
 	// Responsável por realizar o parse das entradas
@@ -75,7 +76,15 @@ public class Parser {
 		return this.displayOption;
 	}
 	
-	public void setDisplayOption(String option) {
+	public void setDisplayOption(String option) throws InvalidDisplayOptionException {
+		ArrayList<String> invalidOptions = new ArrayList<String>();
+		invalidOptions.add("linhas");
+		invalidOptions.add("colunas");
+		
+		if(!invalidOptions.contains(option)) {
+			throw new InvalidDisplayOptionException("Opção inválida: Escolha linhas ou colunas");
+		}
+		
 		this.displayOption = option;
 	}
 
