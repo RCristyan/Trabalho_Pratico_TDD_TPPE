@@ -8,6 +8,7 @@ public class Parser {
 	
 	private String delimiter = "-";
 	private Reader reader;
+	private String displayOption;
 	private ArrayList<ArrayList<String>> matrix = new ArrayList<ArrayList<String>> ();
 	
 	public Parser() {}
@@ -68,6 +69,14 @@ public class Parser {
 	
 	public void setReader(Reader r) {
 		this.reader = r;
+	}
+	
+	public String getDisplayOption() {
+		return this.displayOption;
+	}
+	
+	public void setDisplayOption(String option) {
+		this.displayOption = option;
 	}
 
 }

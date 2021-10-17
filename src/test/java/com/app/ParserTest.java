@@ -176,6 +176,7 @@ class ParserTest {
 	})
 	public void testIfThereIsDisplayOption(String input){
 		Parser parser = new Parser();
+		parser.setDisplayOption(input);
 		
 		assertEquals(parser.getDisplayOption(), input);
 	}
