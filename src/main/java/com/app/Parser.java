@@ -120,7 +120,27 @@ public class Parser {
 			formatedText.add(evo);
 		}
 		
-		return formatedText;
+		if(this.displayOption.equals("linhas")) {
+			return formatedText;			
+		}
+		
+		return this.getFormatedTextInColumns(formatedText);
+	}
+	
+	private ArrayList<String> getFormatedTextInColumns(ArrayList<String> formatedText){
+		ArrayList<String> formatedTextInColumns = new ArrayList<String>();
+		String line = new String();
+		
+		for(int j = 0; j < 12;j++) {
+			line = new String();
+			for(int i = 0; i < formatedText.size(); i++) {
+					line += formatedText.get(i).split(this.delimiter)[j] + this.delimiter;
+			}
+			formatedTextInColumns.add(line);
+		}
+		
+		formatedTextInColumns.add(line);
+		return formatedTextInColumns;
 	}
 
 }
