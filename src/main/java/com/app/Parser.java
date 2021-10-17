@@ -87,5 +87,16 @@ public class Parser {
 		
 		this.displayOption = option;
 	}
+	
+	public String getFormatedEvolution(int index) {
+		String formatedLine = "" + index;
+		ArrayList<String> lineItems = this.getEvolution(index);
+		
+		for(String item : lineItems) {
+			formatedLine += ";" + item;
+		}
+		
+		return formatedLine;
+	}
 
 }

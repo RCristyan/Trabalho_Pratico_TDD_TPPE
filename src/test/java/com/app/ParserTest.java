@@ -197,7 +197,7 @@ class ParserTest {
 	}
 	
 	@Test
-	public void testIfTextIsAdaptedToDisplay() throws InvalidDisplayOptionException {
+	public void testIfTextIsAdaptedToDisplay() throws InvalidDisplayOptionException, DelimitadorInvalidoException {
 		Parser parser = new Parser();
 		try {
 			parser.setReader(new Reader("analysisTime.out"));		
@@ -206,6 +206,7 @@ class ParserTest {
 		}
 		
 		parser.setDisplayOption("linhas");
+		parser.setDelimiter(";");
 		parser.parse();
 		
 		String formatedEvolution = parser.getFormatedEvolution(0);
