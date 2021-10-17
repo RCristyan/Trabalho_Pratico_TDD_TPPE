@@ -8,7 +8,7 @@ public class Parser {
 	
 	private String delimiter = "-";
 	private Reader reader;
-	private ArrayList<ArrayList<String>> matrix;
+	private ArrayList<ArrayList<String>> matrix = new ArrayList<ArrayList<String>> ();
 	
 	public Parser() {}
 	
@@ -19,6 +19,22 @@ public class Parser {
 	public static void main(String[] args) {
 		System.out.println("hello world");
 	}
+	
+	public void parse() {
+		String[] lines = this.getReader().read();
+		
+		ArrayList<String> linha = new ArrayList<String>();
+	    for(int i = 1; i < lines.length; i++) {
+	        
+	        if(lines[i].startsWith("-")) {
+	            break;
+	        }
+	        
+	        linha.add(lines[i]);
+	    }
+	    
+	    this.matrix.add(linha);
+	}
 
 	public String getDelimiter() {
 		return this.delimiter;
@@ -26,6 +42,10 @@ public class Parser {
 	
 	public ArrayList<ArrayList<String>> getEvolutions(){
 		return this.matrix;
+	}
+	
+	public ArrayList<String> getEvolution(int index){
+		return this.matrix.get(0);
 	}
 	
 	public void setDelimiter(String delimiter) throws DelimitadorInvalidoException {

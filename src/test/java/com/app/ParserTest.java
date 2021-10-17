@@ -104,13 +104,15 @@ class ParserTest {
 	}
 	
 	@Test
-	public void testIfReturnsSpecificEvolution() {
+	public void testIfReturnsFirstEvolution() {
 		Parser parser = new Parser();
 		try {
 			parser.setReader(new Reader("analysisTime.out"));		
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		parser.parse();
 		
 		ArrayList<String> evolution0 = parser.getEvolution(0);
 		ArrayList<String> expected = new ArrayList<String>();
@@ -120,6 +122,6 @@ class ParserTest {
 			expected.add("" + value);
 		}
 		
-		assertArrayEquals(expected, evolution0);
+		assertIterableEquals(expected, evolution0);
 	}
 }
