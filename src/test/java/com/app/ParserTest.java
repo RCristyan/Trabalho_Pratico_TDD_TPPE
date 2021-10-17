@@ -146,4 +146,26 @@ class ParserTest {
 		
 		assertIterableEquals(expected, evolution0);
 	}
+	
+	@Test
+	public void testIfReturnsLastEvolution() {
+		Parser parser = new Parser();
+		try {
+			parser.setReader(new Reader("analysisTime.out"));		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		parser.parse();
+		
+		ArrayList<String> evolution0 = parser.getEvolution(20);
+		ArrayList<String> expected = new ArrayList<String>();
+		
+		int values[] = {892820, 850745, 878276, 877227, 876456, 866763, 858800, 860945, 868931, 883683, 867026};
+		for(int value : values) {
+			expected.add("" + value);
+		}
+		
+		assertIterableEquals(expected, evolution0);
+	}
 }
