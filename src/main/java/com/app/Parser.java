@@ -27,13 +27,13 @@ public class Parser {
 	    for(int i = 1; i < lines.length; i++) {
 	        
 	        if(lines[i].startsWith("-")) {
-	            break;
+	        	this.matrix.add(linha);
+	        	i++;
+	        	linha = new ArrayList<String>();
 	        }
 	        
 	        linha.add(lines[i]);
 	    }
-	    
-	    this.matrix.add(linha);
 	}
 
 	public String getDelimiter() {
