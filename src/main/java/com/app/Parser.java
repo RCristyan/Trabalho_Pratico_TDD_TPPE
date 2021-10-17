@@ -45,7 +45,7 @@ public class Parser {
 	}
 	
 	public ArrayList<String> getEvolution(int index){
-		return this.matrix.get(0);
+		return this.matrix.get(index);
 	}
 	
 	public void setDelimiter(String delimiter) throws DelimitadorInvalidoException {
