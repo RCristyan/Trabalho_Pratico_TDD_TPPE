@@ -102,4 +102,24 @@ class ParserTest {
 		
 		assertTrue(evo.get(0) instanceof ArrayList<?>);
 	}
+	
+	@Test
+	public void testIfReturnsSpecificEvolution() {
+		Parser parser = new Parser();
+		try {
+			parser.setReader(new Reader("analysisTime.out"));		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<String> evolution0 = parser.getEvolution(0);
+		ArrayList<String> expected = new ArrayList<String>();
+		
+		int values[] = {1110, 3200, 934, 2310, 3178, 4009, 737, 3121, 1976, 2573, 6291};
+		for(int value : values) {
+			expected.add("" + value);
+		}
+		
+		assertArrayEquals(expected, evolution0);
+	}
 }
