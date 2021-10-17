@@ -86,4 +86,15 @@ class ParserTest {
 		assertTrue(lines[2] instanceof String);
 	}
 	
+	@Test
+	public void testIfThereIsEvolutionsMatrix() {
+		Parser parser = new Parser();
+		try {
+			parser.setReader(new Reader("analysisTime.out"));		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		assertTrue(parser.getEvolutions() instanceof ArrayList<ArrayList>);
+	}
 }
