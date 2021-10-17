@@ -12,6 +12,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import main.java.com.app.Parser;
 import main.java.com.app.exceptions.DelimitadorInvalidoException;
+import main.java.com.app.exceptions.InvalidDisplayOptionException;
 import main.java.com.app.Reader;
 
 class ParserTest {
@@ -179,5 +180,18 @@ class ParserTest {
 		parser.setDisplayOption(input);
 		
 		assertEquals(parser.getDisplayOption(), input);
+	}
+	
+	@ParameterizedTest
+	@CsvSource({
+		"linhas",
+		"colunas"
+	})
+	public void testInvalidDisplayOption(String input){
+		Parser parser = new Parser();
+		
+		assertThrows(InvalidDisplayOptionException.class, () -> {
+			parser.setDisplayOption(input);
+		});
 	}
 }
