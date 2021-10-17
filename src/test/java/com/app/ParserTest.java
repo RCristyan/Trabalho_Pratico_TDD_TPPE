@@ -168,4 +168,15 @@ class ParserTest {
 		
 		assertIterableEquals(expected, evolution0);
 	}
+	
+	@ParameterizedTest
+	@CsvSource({
+		"linhas",
+		"colunas"
+	})
+	public void testIfThereIsDisplayOption(String input){
+		Parser parser = new Parser();
+		
+		assertEquals(parser.getDisplayOption(), input);
+	}
 }
