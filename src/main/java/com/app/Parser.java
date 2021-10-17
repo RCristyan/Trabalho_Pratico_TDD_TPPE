@@ -1,5 +1,6 @@
 package main.java.com.app;
 
+import java.util.ArrayList;
 import main.java.com.app.exceptions.DelimitadorInvalidoException;
 
 public class Parser {
@@ -7,6 +8,7 @@ public class Parser {
 	
 	private String delimiter = "-";
 	private Reader reader;
+	private ArrayList<ArrayList<String>> matrix;
 	
 	public Parser() {}
 	
@@ -20,6 +22,10 @@ public class Parser {
 
 	public String getDelimiter() {
 		return this.delimiter;
+	}
+	
+	public ArrayList<ArrayList<String>> getEvolutions(){
+		return this.matrix;
 	}
 	
 	public void setDelimiter(String delimiter) throws DelimitadorInvalidoException {

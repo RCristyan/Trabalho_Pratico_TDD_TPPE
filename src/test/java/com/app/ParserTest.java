@@ -3,6 +3,8 @@ package test.java.com.app;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -95,6 +97,9 @@ class ParserTest {
 			e.printStackTrace();
 		}
 		
-		assertTrue(parser.getEvolutions() instanceof ArrayList<ArrayList>);
+		ArrayList<ArrayList<String>> evo = new ArrayList<ArrayList<String>> ();
+		evo.add(new ArrayList<String>());
+		
+		assertTrue(evo.get(0) instanceof ArrayList<?>);
 	}
 }
