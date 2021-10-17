@@ -195,4 +195,21 @@ class ParserTest {
 			parser.setDisplayOption(input);
 		});
 	}
+	
+	@Test
+	public void testIfTextIsAdaptedToDisplay() throws InvalidDisplayOptionException {
+		Parser parser = new Parser();
+		try {
+			parser.setReader(new Reader("analysisTime.out"));		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		parser.setDisplayOption("linhas");
+		parser.parse();
+		
+		String formatedEvolution = parser.getFormatedEvolution(0);
+		
+		assertEquals("0;1110;3200;934;2310;3178;4009;737;3121;1976;2573;6291", formatedEvolution);
+	}
 }
