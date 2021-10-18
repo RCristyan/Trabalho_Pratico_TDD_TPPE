@@ -131,12 +131,17 @@ public class WriterTest {
         path.toFile().delete();
     }
 
-    @Test
-    public void TestWriterIsWritingContent() {
+    @ParameterizedTest
+    @CsvSource({
+            "Hello World!",
+            "Hello World! again",
+            "Hello World! again \n again"
+    })
+    public void TestWriterIsWritingContent(String expectedContent) {
         Writer writer = new Writer();
         try {
             writer.setOutputPath("src/test/resources");
-            writer.write("file.txt", "Hello World!");
+            writer.write("file.txt", expectedContent);
         } catch(Exception ex){
             fail(ex.getMessage());
         }
@@ -149,31 +154,7 @@ public class WriterTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
-        assertEquals("Hello World!", content);
-
-        // Clean
-        path.toFile().delete();
-    }
-
-    @Test
-    public void TestWriterIsWritingContent2() {
-        Writer writer = new Writer();
-        try {
-            writer.setOutputPath("src/test/resources");
-            writer.write("file.txt", "Hello World! again");
-        } catch(Exception ex){
-            fail(ex.getMessage());
-        }
-        Path path = Paths.get("src/test/resources/file.txt");
-        BufferedReader reader;
-        String content = "";
-        try {
-            reader = new BufferedReader(new FileReader(path.toFile()));
-            content = reader.readLine();
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-        assertEquals("Hello World! again", content);
+        assertEquals(expectedContent, content);
 
         // Clean
         path.toFile().delete();
