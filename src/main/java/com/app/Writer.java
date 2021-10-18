@@ -44,7 +44,7 @@ public class Writer {
             file.createNewFile();
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write("Hello World!");
+            bw.write(content);
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
