@@ -1,6 +1,7 @@
 package com.app;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Writer {
@@ -33,6 +34,15 @@ public class Writer {
         }else{
             throw new EscritaNaoPermitidaException("Não há permição de escrita no caminho de destino!");
         }
+    }
+
+    public void write (String fileName, String content) {
+        File file = new File("src/test/resources/file.txt"); //falsificação
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
     }
 
     public boolean defineFormatoSaida(){
