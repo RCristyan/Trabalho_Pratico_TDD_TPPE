@@ -1,13 +1,19 @@
 package com.app;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class WriterTest {
     @Test
@@ -101,5 +107,56 @@ public class WriterTest {
         // Assert
         assertNull(writer.getFormatoSaida());
         assertEquals(false, formatoSaidaDefinido);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "file1.txt",
+            "file2.txt",
+            "file3.txt"
+    })
+    public void testWriterIsCreatingFile(String file){
+        Writer writer = new Writer();
+        try {
+            writer.setOutputPath("src/test/resources/temp");
+            writer.write(file, "Hello World!");
+        } catch(Exception ex){
+            fail(ex.getMessage());
+        }
+
+        Path path = Paths.get("src/test/resources/temp/"+file);
+        assertTrue(path.toFile().exists());
+
+        // Clean
+        path.toFile().delete();
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "Hello World!",
+            "Hello World! again",
+            "Hello World! again \n again"
+    })
+    public void TestWriterIsWritingContent(String expectedContent) {
+        Writer writer = new Writer();
+        try {
+            writer.setOutputPath("src/test/resources");
+            writer.write("file.txt", expectedContent);
+        } catch(Exception ex){
+            fail(ex.getMessage());
+        }
+        Path path = Paths.get("src/test/resources/file.txt");
+        BufferedReader reader;
+        String content = "";
+        try {
+            reader = new BufferedReader(new FileReader(path.toFile()));
+            content = reader.readLine();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+        assertEquals(expectedContent, content);
+
+        // Clean
+        path.toFile().delete();
     }
 }
