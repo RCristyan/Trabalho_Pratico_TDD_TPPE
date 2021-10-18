@@ -130,4 +130,28 @@ public class WriterTest {
         // Clean
         path.toFile().delete();
     }
+
+    @Test
+    public void TestWriterIsWritingContent() {
+        Writer writer = new Writer();
+        try {
+            writer.setOutputPath("src/test/resources");
+            writer.write("file.txt", "Hello World!");
+        } catch(Exception ex){
+            fail(ex.getMessage());
+        }
+        Path path = Paths.get("src/test/resources/file.txt");
+        BufferedReader reader;
+        String content = "";
+        try {
+            reader = new BufferedReader(new FileReader(path.toFile()));
+            content = reader.readLine();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+        assertEquals("Hello World!", content);
+
+        // Clean
+        path.toFile().delete();
+    }
 }
