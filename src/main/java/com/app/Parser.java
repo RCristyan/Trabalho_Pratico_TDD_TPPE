@@ -1,9 +1,9 @@
-package main.java.com.app;
+package com.app;
 
 import java.util.ArrayList;
 
-import main.java.com.app.exceptions.DelimitadorInvalidoException;
-import main.java.com.app.exceptions.InvalidDisplayOptionException;
+import com.app.exceptions.DelimitadorInvalidoException;
+import com.app.exceptions.InvalidDisplayOptionException;
 
 public class Parser {
 	// Responsável por realizar o parse das entradas
