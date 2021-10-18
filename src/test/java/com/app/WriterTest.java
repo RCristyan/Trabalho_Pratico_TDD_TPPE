@@ -122,4 +122,18 @@ public class WriterTest {
         Path path = Paths.get("src/test/resources/file.txt");
         assertTrue(path.toFile().exists());
     }
+
+    @Test
+    public void testWriterIsWriting2(){
+        Writer writer = new Writer();
+        try {
+            writer.setOutputPath("src/test/resources");
+            writer.write("file2.txt", "Hello World!");
+        } catch(Exception ex){
+            fail(ex.getMessage());
+        }
+
+        Path path = Paths.get("src/test/resources/file2.txt");
+        assertTrue(path.toFile().exists());
+    }
 }
