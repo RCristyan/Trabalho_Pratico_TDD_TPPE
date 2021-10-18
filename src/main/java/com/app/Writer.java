@@ -37,7 +37,7 @@ public class Writer {
     }
 
     public void write (String fileName, String content) {
-        File file = new File("src/test/resources/file.txt"); //falsificação
+        File file = new File(outputPath + '/' + fileName);
         try {
             file.createNewFile();
         } catch (IOException e) {

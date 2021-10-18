@@ -113,13 +113,13 @@ public class WriterTest {
     public void testWriterIsWriting(){
         Writer writer = new Writer();
         try {
-            writer.setOutputPath("src/test/resources");
+            writer.setOutputPath("src/test/resources/temp");
             writer.write("file.txt", "Hello World!");
         } catch(Exception ex){
             fail(ex.getMessage());
         }
 
-        Path path = Paths.get("src/test/resources/file.txt");
+        Path path = Paths.get("src/test/resources/temp/file.txt");
         assertTrue(path.toFile().exists());
     }
 
@@ -127,13 +127,13 @@ public class WriterTest {
     public void testWriterIsWriting2(){
         Writer writer = new Writer();
         try {
-            writer.setOutputPath("src/test/resources");
+            writer.setOutputPath("src/test/resources/temp");
             writer.write("file2.txt", "Hello World!");
         } catch(Exception ex){
             fail(ex.getMessage());
         }
 
-        Path path = Paths.get("src/test/resources/file2.txt");
+        Path path = Paths.get("src/test/resources/temp/file2.txt");
         assertTrue(path.toFile().exists());
     }
 }
