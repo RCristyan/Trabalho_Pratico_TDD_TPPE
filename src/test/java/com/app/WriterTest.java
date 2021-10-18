@@ -1,13 +1,19 @@
 package com.app;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class WriterTest {
     @Test
@@ -101,5 +107,19 @@ public class WriterTest {
         // Assert
         assertNull(writer.getFormatoSaida());
         assertEquals(false, formatoSaidaDefinido);
+    }
+
+    @Test
+    public void testWriterIsWriting(){
+        Writer writer = new Writer();
+        try {
+            writer.setOutputPath("src/test/resources");
+            writer.write("file.txt", "Hello World!");
+        } catch(Exception ex){
+            fail(ex.getMessage());
+        }
+
+        Path path = Paths.get("src/test/resources/file.txt");
+        assertTrue(path.toFile().exists());
     }
 }
