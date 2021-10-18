@@ -17,12 +17,12 @@ public class Reader {
 		}
 	} 
 
-	Reader(String fileName) throws ArquivoNaoEncontradoException {
+	public Reader(String fileName) throws ArquivoNaoEncontradoException {
 		this.fileName = fileName;
 		this.openFile();
 	}
 	
-	String[] read() {
+	public String[] read() {
 		BufferedReader buffer = new BufferedReader(new java.io.InputStreamReader(fileInputStream));
 		String line = null;
 		ArrayList<String> lines = new ArrayList<String>();
