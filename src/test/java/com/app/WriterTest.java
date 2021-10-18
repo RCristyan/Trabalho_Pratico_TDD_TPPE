@@ -109,31 +109,25 @@ public class WriterTest {
         assertEquals(false, formatoSaidaDefinido);
     }
 
-    @Test
-    public void testWriterIsWriting(){
+    @ParameterizedTest
+    @CsvSource({
+            "file1.txt",
+            "file2.txt",
+            "file3.txt"
+    })
+    public void testWriterIsCreatingFile(String file){
         Writer writer = new Writer();
         try {
             writer.setOutputPath("src/test/resources/temp");
-            writer.write("file.txt", "Hello World!");
+            writer.write(file, "Hello World!");
         } catch(Exception ex){
             fail(ex.getMessage());
         }
 
-        Path path = Paths.get("src/test/resources/temp/file.txt");
+        Path path = Paths.get("src/test/resources/temp/"+file);
         assertTrue(path.toFile().exists());
-    }
 
-    @Test
-    public void testWriterIsWriting2(){
-        Writer writer = new Writer();
-        try {
-            writer.setOutputPath("src/test/resources/temp");
-            writer.write("file2.txt", "Hello World!");
-        } catch(Exception ex){
-            fail(ex.getMessage());
-        }
-
-        Path path = Paths.get("src/test/resources/temp/file2.txt");
-        assertTrue(path.toFile().exists());
+        // Clean
+        path.toFile().delete();
     }
 }
