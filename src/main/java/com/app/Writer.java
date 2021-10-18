@@ -1,6 +1,8 @@
 package com.app;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -40,6 +42,10 @@ public class Writer {
         File file = new File(outputPath + '/' + fileName);
         try {
             file.createNewFile();
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write("Hello World!");
+            bw.close();
         } catch (IOException e) {
             e.printStackTrace();
         } 
