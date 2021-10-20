@@ -27,8 +27,8 @@ public class Parser {
 		String memoryOutputPath = Path.of("").toAbsolutePath().toString();
 		String timeOutputPath = Path.of("").toAbsolutePath().toString();
 
-		String[] memoryContent;
-		String[] timeContent;
+		ArrayList<String> memoryContent = null;
+		ArrayList<String> timeContent = null;
 
 		Reader reader = null;
 		Parser parser = null;
@@ -36,31 +36,39 @@ public class Parser {
 
 		try {
 			reader = new Reader(memoryCurrentPath);
-
-			memoryContent = reader.read();
 		}catch (Exception ex){
-			System.out.println("Não foi possível Realizar a leitura do arquivo!");
+			System.out.println("Não foi possível instanciar o objeto de leitura!");
 			System.out.println("Erro:" + ex.getMessage());
 		}
-
-		try {
-			parser = new Parser(";");
-
-			parser.setReader(reader);
-
-			memoryContent = parser.getReader().read();
-		}catch (Exception ex){
-			System.out.println("Não foi possível realizar o parser do arquivo!");
-			System.out.println("Erro:" + ex.getMessage());
-		}
-
 
 		try {
 			writer = new Writer();
 
-			writer.pathAllowWrite(memoryOutputPath);
+			parser = new Parser(";");
 
 			writer.defineFormatoSaida();
+
+			parser.setDisplayOption(writer.getFormatoSaida());
+
+			parser.setReader(reader);
+
+			parser.parse();
+
+			memoryContent = parser.getFormatedText();
+		}catch (Exception ex){
+			System.out.println("Erro:" + ex.getMessage());
+		}
+
+		try {
+			writer.pathAllowWrite(memoryOutputPath);
+
+			String outputContent = "";
+
+			for (int i = 0; i < memoryContent.size(); i++){
+				outputContent += memoryContent.get(i) + "\n";
+			}
+
+			writer.write("memory.txt" ,outputContent);
 		}catch (Exception ex){
 			System.out.println("Não foi possível Realizar a escrita do arquivo!");
 			System.out.println("Erro:" + ex.getMessage());
