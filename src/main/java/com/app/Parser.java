@@ -20,22 +20,15 @@ public class Parser {
 		this.setDelimiter(delimiter);
 	}
 	
-	public static void main(String[] args) {
-		String memoryCurrentPath = "analysisMemory.out";
-		String timeCurrentPath = "analysisTime.out";
-
-		String memoryOutputPath = Path.of("").toAbsolutePath().toString();
-		String timeOutputPath = Path.of("").toAbsolutePath().toString();
-
-		ArrayList<String> memoryContent = null;
-		ArrayList<String> timeContent = null;
+public void fluxoProcesso(String currentPath, String OutputPath, String outputFileName, Parser parser) {
+		ArrayList<String> ResultContent = null;
 
 		Reader reader = null;
-		Parser parser = null;
+
 		Writer writer = null;
 
 		try {
-			reader = new Reader(memoryCurrentPath);
+			reader = new Reader(currentPath);
 		}catch (Exception ex){
 			System.out.println("Não foi possível instanciar o objeto de leitura!");
 			System.out.println("Erro:" + ex.getMessage());
@@ -44,7 +37,7 @@ public class Parser {
 		try {
 			writer = new Writer();
 
-			parser = new Parser(";");
+			parser.setDelimiter(";");
 
 			writer.defineFormatoSaida();
 
@@ -60,25 +53,41 @@ public class Parser {
 
 			parser.parse();
 
-			memoryContent = parser.getFormatedText();
+			ResultContent = parser.getFormatedText();
 		}catch (Exception ex){
 			System.out.println("Erro:" + ex.getMessage());
 		}
 
 		try {
-			writer.pathAllowWrite(memoryOutputPath);
+			if(writer.pathAllowWrite(OutputPath))
+				writer.setOutputPath(OutputPath);
 
 			String outputContent = "";
 
-			for (int i = 0; i < memoryContent.size(); i++){
-				outputContent += memoryContent.get(i) + "\n";
+			for (int i = 0; i < ResultContent.size(); i++){
+				outputContent += ResultContent.get(i) + "\n";
 			}
 
-			writer.write("memory.txt" ,outputContent);
+			writer.write(outputFileName ,outputContent);
 		}catch (Exception ex){
 			System.out.println("Não foi possível Realizar a escrita do arquivo!");
 			System.out.println("Erro:" + ex.getMessage());
 		}
+	}
+
+	public static void main(String[] args) {
+		String memoryCurrentPath = "analysisMemory.out";
+		String timeCurrentPath = "analysisTime.out";
+
+		String outputPath = Path.of("").toAbsolutePath().toString();
+
+		String memoryOutputFileName = "memory.txt";
+		String timeOutputFileName = "time.txt";
+
+		Parser parser = new Parser();
+
+		parser.fluxoProcesso(memoryCurrentPath, outputPath, memoryOutputFileName, parser);
+		parser.fluxoProcesso(timeCurrentPath, outputPath, timeOutputFileName, parser);
 	}
 	
 	public void parse() {
