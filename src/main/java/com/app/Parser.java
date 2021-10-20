@@ -152,8 +152,6 @@ public void fluxoProcesso(String currentPath, String OutputPath, String outputFi
 		ArrayList<String> invalidOptions = new ArrayList<String>();
 		invalidOptions.add("linhas");
 		invalidOptions.add("colunas");
-
-		System.out.println(option);
 		
 		if(!invalidOptions.contains(option)) {
 			throw new InvalidDisplayOptionException("Opção inválida: Escolha linhas ou colunas");
