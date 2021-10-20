@@ -1,5 +1,6 @@
 package com.app;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import com.app.exceptions.DelimitadorInvalidoException;
@@ -19,8 +20,74 @@ public class Parser {
 		this.setDelimiter(delimiter);
 	}
 	
+public void fluxoProcesso(String currentPath, String OutputPath, String outputFileName, Parser parser) {
+		ArrayList<String> ResultContent = null;
+
+		Reader reader = null;
+
+		Writer writer = null;
+
+		try {
+			reader = new Reader(currentPath);
+		}catch (Exception ex){
+			System.out.println("Não foi possível instanciar o objeto de leitura!");
+			System.out.println("Erro:" + ex.getMessage());
+		}
+
+		try {
+			writer = new Writer();
+
+			parser.setDelimiter(";");
+
+			writer.defineFormatoSaida();
+
+			String formato = writer.getFormatoSaida();
+
+			if (formato == "linha") {
+				parser.setDisplayOption("linhas");
+			} else {
+				parser.setDisplayOption("colunas");
+			}
+
+			parser.setReader(reader);
+
+			parser.parse();
+
+			ResultContent = parser.getFormatedText();
+		}catch (Exception ex){
+			System.out.println("Erro:" + ex.getMessage());
+		}
+
+		try {
+			if(writer.pathAllowWrite(OutputPath))
+				writer.setOutputPath(OutputPath);
+
+			String outputContent = "";
+
+			for (int i = 0; i < ResultContent.size(); i++){
+				outputContent += ResultContent.get(i) + "\n";
+			}
+
+			writer.write(outputFileName ,outputContent);
+		}catch (Exception ex){
+			System.out.println("Não foi possível Realizar a escrita do arquivo!");
+			System.out.println("Erro:" + ex.getMessage());
+		}
+	}
+
 	public static void main(String[] args) {
-		System.out.println("hello world");
+		String memoryCurrentPath = "analysisMemory.out";
+		String timeCurrentPath = "analysisTime.out";
+
+		String outputPath = Path.of("").toAbsolutePath().toString();
+
+		String memoryOutputFileName = "memory.txt";
+		String timeOutputFileName = "time.txt";
+
+		Parser parser = new Parser();
+
+		parser.fluxoProcesso(memoryCurrentPath, outputPath, memoryOutputFileName, parser);
+		parser.fluxoProcesso(timeCurrentPath, outputPath, timeOutputFileName, parser);
 	}
 	
 	public void parse() {
