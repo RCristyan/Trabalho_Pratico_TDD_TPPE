@@ -48,7 +48,13 @@ public class Parser {
 
 			writer.defineFormatoSaida();
 
-			parser.setDisplayOption(writer.getFormatoSaida());
+			String formato = writer.getFormatoSaida();
+
+			if (formato == "linha") {
+				parser.setDisplayOption("linhas");
+			} else {
+				parser.setDisplayOption("colunas");
+			}
 
 			parser.setReader(reader);
 
@@ -137,6 +143,8 @@ public class Parser {
 		ArrayList<String> invalidOptions = new ArrayList<String>();
 		invalidOptions.add("linhas");
 		invalidOptions.add("colunas");
+
+		System.out.println(option);
 		
 		if(!invalidOptions.contains(option)) {
 			throw new InvalidDisplayOptionException("Opção inválida: Escolha linhas ou colunas");
