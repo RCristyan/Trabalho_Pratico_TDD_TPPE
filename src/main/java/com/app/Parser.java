@@ -1,5 +1,6 @@
 package com.app;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import com.app.exceptions.DelimitadorInvalidoException;
@@ -20,7 +21,50 @@ public class Parser {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("hello world");
+		String memoryCurrentPath = "analysisMemory.out";
+		String timeCurrentPath = "analysisTime.out";
+
+		String memoryOutputPath = Path.of("").toAbsolutePath().toString();
+		String timeOutputPath = Path.of("").toAbsolutePath().toString();
+
+		String[] memoryContent;
+		String[] timeContent;
+
+		Reader reader = null;
+		Parser parser = null;
+		Writer writer = null;
+
+		try {
+			reader = new Reader(memoryCurrentPath);
+
+			memoryContent = reader.read();
+		}catch (Exception ex){
+			System.out.println("Não foi possível Realizar a leitura do arquivo!");
+			System.out.println("Erro:" + ex.getMessage());
+		}
+
+		try {
+			parser = new Parser(";");
+
+			parser.setReader(reader);
+
+			memoryContent = parser.getReader().read();
+		}catch (Exception ex){
+			System.out.println("Não foi possível realizar o parser do arquivo!");
+			System.out.println("Erro:" + ex.getMessage());
+		}
+
+
+		try {
+			writer = new Writer();
+
+			writer.pathAllowWrite(memoryOutputPath);
+
+			writer.defineFormatoSaida();
+		}catch (Exception ex){
+			System.out.println("Não foi possível Realizar a escrita do arquivo!");
+			System.out.println("Erro:" + ex.getMessage());
+		}
 	}
 	
 	public void parse() {
