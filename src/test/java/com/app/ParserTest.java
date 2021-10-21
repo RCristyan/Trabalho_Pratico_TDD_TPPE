@@ -1,14 +1,19 @@
-package test.java.com.app;
+package com.app;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+
+import com.app.exceptions.DelimitadorInvalidoException;
+import com.app.exceptions.InvalidDisplayOptionException;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import main.java.com.app.Parser;
-import main.java.com.app.exceptions.DelimitadorInvalidoException;
 
 class ParserTest {
 
@@ -56,4 +61,156 @@ class ParserTest {
 		assertEquals(parser.getDelimiter(), expectedOutput);
 	}
 	
+	@Test
+	public void testIfThereIsReader() {
+		Parser parser = new Parser();
+		try {
+			parser.setReader(new Reader("analysisTime.out"));		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		assertTrue(parser.getReader() instanceof Reader);
+	}
+	
+	@Test
+	public void testIfThereIsReadLines() {
+		Parser parser = new Parser();
+		try {
+			parser.setReader(new Reader("analysisTime.out"));		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		String[] lines = parser.getReader().read();
+		
+		assertTrue(lines[0] instanceof String);
+		assertTrue(lines[1] instanceof String);
+		assertTrue(lines[2] instanceof String);
+	}
+	
+	@Test
+	public void testIfThereIsEvolutionsMatrix() {
+		Parser parser = new Parser();
+		try {
+			parser.setReader(new Reader("analysisTime.out"));		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<ArrayList<String>> evo = new ArrayList<ArrayList<String>> ();
+		evo.add(new ArrayList<String>());
+		
+		assertTrue(evo.get(0) instanceof ArrayList<?>);
+	}
+	
+	@Test
+	public void testIfReturnsFirstEvolution() {
+		Parser parser = new Parser();
+		try {
+			parser.setReader(new Reader("analysisTime.out"));		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		parser.parse();
+		
+		ArrayList<String> evolution0 = parser.getEvolution(0);
+		ArrayList<String> expected = new ArrayList<String>();
+		
+		int values[] = {1110, 3200, 934, 2310, 3178, 4009, 737, 3121, 1976, 2573, 6291};
+		for(int value : values) {
+			expected.add("" + value);
+		}
+		
+		assertIterableEquals(expected, evolution0);
+	}
+	
+	@Test
+	public void testIfReturnsSecondEvolution() {
+		Parser parser = new Parser();
+		try {
+			parser.setReader(new Reader("analysisTime.out"));		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		parser.parse();
+		
+		ArrayList<String> evolution0 = parser.getEvolution(1);
+		ArrayList<String> expected = new ArrayList<String>();
+		
+		int values[] = {413, 577, 410, 584, 866, 1075, 400, 701, 506, 720, 539};
+		for(int value : values) {
+			expected.add("" + value);
+		}
+		
+		assertIterableEquals(expected, evolution0);
+	}
+	
+	@Test
+	public void testIfReturnsLastEvolution() {
+		Parser parser = new Parser();
+		try {
+			parser.setReader(new Reader("analysisTime.out"));		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		parser.parse();
+		
+		ArrayList<String> evolution0 = parser.getEvolution(20);
+		ArrayList<String> expected = new ArrayList<String>();
+		
+		int values[] = {892820, 850745, 878276, 877227, 876456, 866763, 858800, 860945, 868931, 883683, 867026};
+		for(int value : values) {
+			expected.add("" + value);
+		}
+		
+		assertIterableEquals(expected, evolution0);
+	}
+	
+	@ParameterizedTest
+	@CsvSource({
+		"linhas",
+		"colunas"
+	})
+	public void testIfThereIsDisplayOption(String input) throws InvalidDisplayOptionException{
+		Parser parser = new Parser();
+		parser.setDisplayOption(input);			
+		
+		assertEquals(parser.getDisplayOption(), input);
+	}
+	
+	@ParameterizedTest
+	@CsvSource({
+		"texto",
+		"espaços",
+		"\\t"
+	})
+	public void testInvalidDisplayOption(String input){
+		Parser parser = new Parser();
+		
+		assertThrows(InvalidDisplayOptionException.class, () -> {
+			parser.setDisplayOption(input);
+		});
+	}
+	
+	@Test
+	public void testIfTextIsAdaptedToDisplay() throws InvalidDisplayOptionException, DelimitadorInvalidoException {
+		Parser parser = new Parser();
+		try {
+			parser.setReader(new Reader("analysisTime.out"));		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		parser.setDisplayOption("linhas");
+		parser.setDelimiter(";");
+		parser.parse();
+		
+		String formatedEvolution = parser.getFormatedEvolution(0);
+		
+		assertEquals("0;1110;3200;934;2310;3178;4009;737;3121;1976;2573;6291", formatedEvolution);
+	}
 }

@@ -1,4 +1,4 @@
-package main.java.com.app;
+package com.app;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -17,12 +17,12 @@ public class Reader {
 		}
 	} 
 
-	Reader(String fileName) throws ArquivoNaoEncontradoException {
+	public Reader(String fileName) throws ArquivoNaoEncontradoException {
 		this.fileName = fileName;
 		this.openFile();
 	}
 	
-	String[] read() {
+	public String[] read() {
 		BufferedReader buffer = new BufferedReader(new java.io.InputStreamReader(fileInputStream));
 		String line = null;
 		ArrayList<String> lines = new ArrayList<String>();

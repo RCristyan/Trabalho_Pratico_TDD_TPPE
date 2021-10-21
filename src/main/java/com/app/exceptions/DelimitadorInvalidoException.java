@@ -1,4 +1,4 @@
-package main.java.com.app.exceptions;
+package com.app.exceptions;
 
 public class DelimitadorInvalidoException extends Exception {
 	public DelimitadorInvalidoException(String string) {
