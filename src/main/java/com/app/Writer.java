@@ -38,11 +38,15 @@ public class Writer {
         }
     }
 
-    public void write (String fileName, String content) {
+    private FileWriter openFile(String fileName) throws IOException{
         File file = new File(outputPath + '/' + fileName);
+        file.createNewFile();
+        return new FileWriter(file.getAbsoluteFile());
+    }
+
+    public void write (String fileName, String content) {
         try {
-            file.createNewFile();
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            FileWriter fw = openFile(fileName);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(content);
             bw.close();
