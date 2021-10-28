@@ -10,15 +10,18 @@ public class Parser {
 	// Responsável por realizar o parse das entradas
 	
 	private String delimiter = "-";
-	private Reader reader;
+	private Persistencia persistencia;
 	private String displayOption;
 	private ArrayList<ArrayList<String>> matrix = new ArrayList<ArrayList<String>> ();
 	private Runner runner;
 	
-	public Parser() {}
+	public Parser() {
+		this.persistencia = new Persistencia();
+	}
 	
 	public Parser(String delimiter) throws DelimitadorInvalidoException {
 		this.setDelimiter(delimiter);
+		this.persistencia = new Persistencia();
 	}
 	
 	public void fluxoProcesso(String currentPath, String OutputPath, String outputFileName, Parser parser) {
@@ -42,7 +45,7 @@ public class Parser {
 	}
 	
 	public void parse() {
-		String[] lines = this.getReader().read();
+		String[] lines = this.persistencia.readFromFile();
 		
 		ArrayList<String> linha = new ArrayList<String>();
 	    for(int i = 1; i <= lines.length; i++) {
@@ -88,11 +91,15 @@ public class Parser {
 	}
 
 	public Reader getReader() {
-		return this.reader;
+		return this.persistencia.getReader();
 	}
 	
 	public void setReader(Reader r) {
-		this.reader = r;
+		this.persistencia.setReader(r);
+	}
+
+	public void setPersistencia(Persistencia p) {
+		this.persistencia = p;
 	}
 	
 	public String getDisplayOption() {

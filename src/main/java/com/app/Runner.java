@@ -4,29 +4,19 @@ import java.util.ArrayList;
 
 public class Runner {
     private ArrayList<String> ResultContent = null;
-    private Reader reader = null;
-    private Writer writer = null;
 
     private String currentPath;
     private String outputPath;
     private String outputFileName;
     private Parser parser;
+    private Persistencia persistencia;
 
-    public Runner(String currentPath, String OutputPath, String outputFileName, Parser parser){
+    public Runner(String currentPath, String outputPath, String outputFileName, Parser parser){
         this.currentPath = currentPath;
-        this.outputPath = OutputPath;
+        this.outputPath = outputPath;
         this.outputFileName = outputFileName;
         this.parser = parser;
-    }
-
-    private void initReader() throws ArquivoNaoEncontradoException{
-        reader = new Reader(currentPath);
-    }
-
-    private void initWriter() {
-        writer = new Writer();
-        writer.setOutputPath(outputPath);
-        writer.defineFormatoSaida();
+        this.persistencia = new Persistencia(currentPath, outputPath, outputFileName);
     }
 
     private void parseFile() {
@@ -34,7 +24,7 @@ public class Runner {
 
             parser.setDelimiter(";");
             
-			String formato = writer.getFormatoSaida();
+			String formato = persistencia.getWriter().getFormatoSaida();
 
 			if (formato == "linha") {
 				parser.setDisplayOption("linhas");
@@ -42,7 +32,7 @@ public class Runner {
 				parser.setDisplayOption("colunas");
 			}
             
-			parser.setReader(reader);
+			parser.setReader(persistencia.getReader());
             
 			parser.parse();
         }
@@ -53,8 +43,8 @@ public class Runner {
 
     private void writeToFile() {
         try {
-			if(writer.pathAllowWrite(outputPath))
-				writer.setOutputPath(outputPath);
+			if(persistencia.getWriter().pathAllowWrite(outputPath))
+				persistencia.getWriter().setOutputPath(outputPath);
 
 			String outputContent = "";
 
@@ -62,7 +52,7 @@ public class Runner {
 				outputContent += ResultContent.get(i) + "\n";
 			}
 
-			writer.write(outputFileName ,outputContent);
+			persistencia.writeToFile(outputContent);
 		}catch (Exception ex){
 			System.out.println("Não foi possível Realizar a escrita do arquivo!");
 			System.out.println("Erro:" + ex.getMessage());
@@ -71,14 +61,8 @@ public class Runner {
 
     public void execute(){
 		try {
-			initReader();
-		}catch (Exception ex){
-			System.out.println("Não foi possível instanciar o objeto de leitura!");
-			System.out.println("Erro:" + ex.getMessage());
-		}
 
-		try {
-			initWriter();
+            parser.setPersistencia(persistencia);
             
             parseFile();
 
