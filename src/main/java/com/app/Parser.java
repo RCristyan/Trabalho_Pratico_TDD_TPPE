@@ -13,6 +13,7 @@ public class Parser {
 	private Reader reader;
 	private String displayOption;
 	private ArrayList<ArrayList<String>> matrix = new ArrayList<ArrayList<String>> ();
+	private Runner runner;
 	
 	public Parser() {}
 	
@@ -20,59 +21,9 @@ public class Parser {
 		this.setDelimiter(delimiter);
 	}
 	
-public void fluxoProcesso(String currentPath, String OutputPath, String outputFileName, Parser parser) {
-		ArrayList<String> ResultContent = null;
-
-		Reader reader = null;
-
-		Writer writer = null;
-
-		try {
-			reader = new Reader(currentPath);
-		}catch (Exception ex){
-			System.out.println("Não foi possível instanciar o objeto de leitura!");
-			System.out.println("Erro:" + ex.getMessage());
-		}
-
-		try {
-			writer = new Writer();
-
-			parser.setDelimiter(";");
-
-			writer.defineFormatoSaida();
-
-			String formato = writer.getFormatoSaida();
-
-			if (formato == "linha") {
-				parser.setDisplayOption("linhas");
-			} else {
-				parser.setDisplayOption("colunas");
-			}
-
-			parser.setReader(reader);
-
-			parser.parse();
-
-			ResultContent = parser.getFormatedText();
-		}catch (Exception ex){
-			System.out.println("Erro:" + ex.getMessage());
-		}
-
-		try {
-			if(writer.pathAllowWrite(OutputPath))
-				writer.setOutputPath(OutputPath);
-
-			String outputContent = "";
-
-			for (int i = 0; i < ResultContent.size(); i++){
-				outputContent += ResultContent.get(i) + "\n";
-			}
-
-			writer.write(outputFileName ,outputContent);
-		}catch (Exception ex){
-			System.out.println("Não foi possível Realizar a escrita do arquivo!");
-			System.out.println("Erro:" + ex.getMessage());
-		}
+	public void fluxoProcesso(String currentPath, String OutputPath, String outputFileName, Parser parser) {
+		runner = new Runner(currentPath, OutputPath, outputFileName, parser);
+		runner.execute();
 	}
 
 	public static void main(String[] args) {
