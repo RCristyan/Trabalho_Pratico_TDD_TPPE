@@ -1,0 +1,4 @@
+Testes passando? OK!
+Formatos dos arquivods? OK
+
+Nota final: 100%
