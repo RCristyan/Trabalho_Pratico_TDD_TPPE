@@ -21,8 +21,8 @@ public class Reader {
 		this.fileName = fileName;
 		this.openFile();
 	}
-	
-	public String[] read() {
+
+	private ArrayList<String> readLines(){
 		BufferedReader buffer = new BufferedReader(new java.io.InputStreamReader(fileInputStream));
 		String line = null;
 		ArrayList<String> lines = new ArrayList<String>();
@@ -33,6 +33,12 @@ public class Reader {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+
+		return lines;
+	}
+	
+	public String[] read() {
+		ArrayList<String> lines = this.readLines();
 		return lines.toArray(new String[lines.size()]);
 	}
 }

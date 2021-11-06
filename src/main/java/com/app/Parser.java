@@ -10,69 +10,23 @@ public class Parser {
 	// Responsável por realizar o parse das entradas
 	
 	private String delimiter = "-";
-	private Reader reader;
+	private Persistencia persistencia;
 	private String displayOption;
 	private ArrayList<ArrayList<String>> matrix = new ArrayList<ArrayList<String>> ();
+	private Runner runner;
 	
-	public Parser() {}
+	public Parser() {
+		this.persistencia = new Persistencia();
+	}
 	
 	public Parser(String delimiter) throws DelimitadorInvalidoException {
 		this.setDelimiter(delimiter);
+		this.persistencia = new Persistencia();
 	}
 	
-public void fluxoProcesso(String currentPath, String OutputPath, String outputFileName, Parser parser) {
-		ArrayList<String> ResultContent = null;
-
-		Reader reader = null;
-
-		Writer writer = null;
-
-		try {
-			reader = new Reader(currentPath);
-		}catch (Exception ex){
-			System.out.println("Não foi possível instanciar o objeto de leitura!");
-			System.out.println("Erro:" + ex.getMessage());
-		}
-
-		try {
-			writer = new Writer();
-
-			parser.setDelimiter(";");
-
-			writer.defineFormatoSaida();
-
-			String formato = writer.getFormatoSaida();
-
-			if (formato == "linha") {
-				parser.setDisplayOption("linhas");
-			} else {
-				parser.setDisplayOption("colunas");
-			}
-
-			parser.setReader(reader);
-
-			parser.parse();
-
-			ResultContent = parser.getFormatedText();
-		}catch (Exception ex){
-			System.out.println("Erro:" + ex.getMessage());
-		}
-
-		try {
-			if(writer.pathAllowWrite(OutputPath))
-				writer.setOutputPath(OutputPath);
-
-			String outputContent = "";
-
-			for (int i = 0; i < ResultContent.size(); i++){
-				outputContent += ResultContent.get(i) + "\n";
-			}
-
-			writer.write(outputFileName ,outputContent);
-		}catch (Exception ex){
-			System.out.println("Não foi possível Realizar a escrita do arquivo!");
-			System.out.println("Erro:" + ex.getMessage());
-		}
+	public void fluxoProcesso(String currentPath, String OutputPath, String outputFileName, Parser parser) {
+		runner = new Runner(currentPath, OutputPath, outputFileName, parser);
+		runner.execute();
 	}
 
 	public static void main(String[] args) {
@@ -91,7 +45,7 @@ public void fluxoProcesso(String currentPath, String OutputPath, String outputFi
 	}
 	
 	public void parse() {
-		String[] lines = this.getReader().read();
+		String[] lines = this.persistencia.readFromFile();
 		
 		ArrayList<String> linha = new ArrayList<String>();
 	    for(int i = 1; i <= lines.length; i++) {
@@ -137,11 +91,15 @@ public void fluxoProcesso(String currentPath, String OutputPath, String outputFi
 	}
 
 	public Reader getReader() {
-		return this.reader;
+		return this.persistencia.getReader();
 	}
 	
 	public void setReader(Reader r) {
-		this.reader = r;
+		this.persistencia.setReader(r);
+	}
+
+	public void setPersistencia(Persistencia p) {
+		this.persistencia = p;
 	}
 	
 	public String getDisplayOption() {
